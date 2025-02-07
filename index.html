@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div id="root"></div>
+    </main>
+    <script type="module">
+        import { h, createApp } from "./node_modules/vue/dist/vue.esm-browser.prod.js";
+
+        const Login = {
+            data() {
+                return {
+                    username: "alex",
+                    password: "sarah"
+                };
+            },
+            methods: {
+                handleSubmit(event) {
+                    event.preventDefault();
+                    if (this.username === "" || this.password === "") {
+                        alert("veuillez remplir tous les champs");
+                        return;
+                    } else if (this.username === "alex" && this.password === "sarah") {
+                        alert("Bienvenue !");
+                    } else {
+                        alert("nom d'utilisateur ou mot de passe incorrect");
+                    }
+                }
+            },
+            render() {
+                return h('form', { onSubmit: this.handleSubmit }, [
+                    h('div', [
+                        h('label', { for: 'username' }, 'Username:'),
+                        h('input', {
+                            id: 'username',
+                            type: 'text',
+                            value: this.username,
+                            onInput: event => this.username = event.target.value,
+                            'aria-label': 'Username'
+                        })
+                    ]),
+                    h('div', [
+                        h('label', { for: 'password' }, 'Password:'),
+                        h('input', {
+                            id: 'password',
+                            type: 'password',
+                            value: this.password,
+                            onInput: event => this.password = event.target.value,
+                            'aria-label': 'Password'
+                        })
+                    ]),
+                    h('button', { type: 'submit' }, 'Login')
+                ]);
+            }
+        };
+
+        createApp(Login).mount('#root');
+    </script>
+</body>
+</html>
